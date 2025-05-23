@@ -1,13 +1,20 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: Jacobs first VPC
 
+Parameters:
+  VpcCidrBlock:
+    Type: String
+    Description: "CIDR block for the VPC."
+    Default: "10.0.0.0/16"
+
 Resources:
-  MyVPC:
+  JacobsVPC:
     Type: AWS::EC2::VPC
     Properties:
-      CidrBlock: 10.0.0.0/16
+      CidrBlock: !Ref VpcCidrBlock
       EnableDnsSupport: true
       EnableDnsHostnames: true
+      InstanceTenancy: default
       Tags:
         - Key: Name
           Value: !Join ['', [!Ref "AWS::StackName", "-VPC"]]
